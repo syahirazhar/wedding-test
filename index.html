@@ -14,10 +14,11 @@ body{
   background:#fff;
 }
 
-/* PAGE 1 */
+/* LANDING */
 #landing{
   position:fixed;
   inset:0;
+  transition:opacity 0.6s ease;
 }
 
 #landing video{
@@ -29,7 +30,7 @@ body{
 .overlay{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.3);
+  background:rgba(0,0,0,0.35);
 }
 
 button{
@@ -42,28 +43,32 @@ button{
   border-radius:30px;
   font-size:16px;
   background:#fff;
+  cursor:pointer;
 }
 
-/* MAIN PAGE */
+/* MAIN */
 #main{
   display:none;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 0.6s ease;
 }
 
-/* HEADER IMAGE */
+/* HEADER */
 .header-img{
   width:100%;
   display:flex;
   justify-content:center;
-  margin-top:20px;
+  margin-top:25px;
 }
 
 .header-img img{
   width:80%;
-  max-width:400px;
+  max-width:380px;
 }
 
 /* CAROUSEL */
-.carousel-container{
+.carousel-wrapper{
   overflow:hidden;
   margin-top:30px;
 }
@@ -71,15 +76,15 @@ button{
 .carousel-track{
   display:flex;
   width:max-content;
-  animation:scroll 20s linear infinite;
+  animation:scroll 18s linear infinite;
 }
 
 .carousel-track img{
-  width:250px;
-  height:250px;
+  width:220px;
+  height:220px;
   object-fit:cover;
   margin-right:10px;
-  border-radius:10px;
+  border-radius:12px;
 }
 
 @keyframes scroll{
@@ -89,22 +94,34 @@ button{
 
 /* RSVP */
 .rsvp{
-  margin-top:40px;
+  margin-top:50px;
   padding:20px;
   text-align:center;
 }
 
-input, button.rsvp-btn{
-  width:80%;
-  max-width:300px;
-  padding:10px;
+.rsvp input{
+  width:85%;
+  max-width:320px;
+  padding:12px;
   margin-top:10px;
+  border:1px solid #ddd;
+  border-radius:8px;
 }
 
-button.rsvp-btn{
+.rsvp button{
+  position:static;
+  transform:none;
+  margin-top:15px;
+  width:85%;
+  max-width:320px;
   background:black;
   color:white;
-  border:none;
+  border-radius:8px;
+}
+
+#msg{
+  margin-top:15px;
+  font-size:14px;
 }
 
 </style>
@@ -124,13 +141,12 @@ button.rsvp-btn{
 <!-- MAIN -->
 <div id="main">
 
-  <!-- TAJUK -->
   <div class="header-img">
-    <img src="tajuk.png" alt="tajuk">
+    <img src="tajuk.png">
   </div>
 
   <!-- CAROUSEL -->
-  <div class="carousel-container">
+  <div class="carousel-wrapper">
     <div class="carousel-track">
       <img src="g1.jpg">
       <img src="g2.jpg">
@@ -138,7 +154,6 @@ button.rsvp-btn{
       <img src="g4.jpg">
       <img src="g5.jpg">
 
-      <!-- duplicate for seamless loop -->
       <img src="g1.jpg">
       <img src="g2.jpg">
       <img src="g3.jpg">
@@ -154,31 +169,69 @@ button.rsvp-btn{
     <form id="rsvpForm">
       <input type="text" name="name" placeholder="Nama" required>
       <input type="number" name="pax" placeholder="Jumlah Pax" required>
-      <button class="rsvp-btn" type="submit">Hantar</button>
+      <button type="submit" id="submitBtn">Hantar</button>
     </form>
+
+    <div id="msg"></div>
   </div>
 
 </div>
 
 <script>
 
-function openPage(){
-  document.getElementById("landing").style.display = "none";
-  document.getElementById("main").style.display = "block";
-}
-
-/* GOOGLE SHEET FORM */
 const scriptURL = "https://script.google.com/macros/s/AKfycbw9h3Jtk0QOVi0L5zBPz1wb0TU5KG-nPvxrHxyKsHAgg0inrqLu0Yj1z6gbnbjbeahuWQ/exec";
 
-document.getElementById("rsvpForm").addEventListener("submit", e=>{
+/* OPEN PAGE */
+function openPage(){
+  document.getElementById("landing").style.opacity = "0";
+
+  setTimeout(()=>{
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("main").style.display = "block";
+
+    setTimeout(()=>{
+      document.getElementById("main").style.opacity = "1";
+      document.getElementById("main").style.transform = "translateY(0)";
+    },50);
+
+  },600);
+}
+
+/* RSVP */
+document.getElementById("rsvpForm").addEventListener("submit", async (e)=>{
   e.preventDefault();
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: new FormData(document.getElementById("rsvpForm"))
-  })
-  .then(response => alert("Terima kasih! RSVP diterima"))
-  .catch(error => alert("Error"));
+  const btn = document.getElementById("submitBtn");
+  const msg = document.getElementById("msg");
+
+  btn.disabled = true;
+  btn.innerText = "Menghantar...";
+
+  msg.innerText = "";
+
+  try{
+    const res = await fetch(scriptURL, {
+      method: "POST",
+      body: new FormData(e.target)
+    });
+
+    const text = await res.text();
+    console.log(text);
+
+    msg.innerText = "Terima kasih! RSVP berjaya dihantar.";
+    msg.style.color = "green";
+
+    e.target.reset();
+
+  }catch(err){
+    console.log(err);
+
+    msg.innerText = "Gagal hantar. Cuba lagi.";
+    msg.style.color = "red";
+  }
+
+  btn.disabled = false;
+  btn.innerText = "Hantar";
 });
 
 </script>
