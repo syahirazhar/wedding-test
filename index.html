@@ -73,19 +73,6 @@ button{
   max-width:360px;
 }
 
-/* MUSIC BUTTON */
-.music-btn{
-  position:fixed;
-  top:15px;
-  right:15px;
-  z-index:999;
-  background:#fff;
-  border:1px solid #ddd;
-  padding:10px 12px;
-  border-radius:12px;
-  font-size:12px;
-}
-
 /* SECTION */
 section{
   padding:40px 20px;
@@ -139,7 +126,7 @@ section{
   min-width:70px;
 }
 
-/* MAP + WAZE */
+/* MAP */
 .map{
   width:100%;
   height:220px;
@@ -147,6 +134,7 @@ section{
   border-radius:12px;
 }
 
+/* WAZE */
 .waze-btn{
   display:block;
   margin:15px auto 0;
@@ -195,12 +183,6 @@ section{
 </head>
 
 <body>
-
-<!-- MUSIC -->
-<button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
-<audio id="bgm" loop>
-  <source src="music.mp3">
-</audio>
 
 <!-- LANDING -->
 <div id="landing">
@@ -274,10 +256,7 @@ section{
 
 const scriptURL = "https://script.google.com/macros/s/AKfycbw9h3Jtk0QOVi0L5zBPz1wb0TU5KG-nPvxrHxyKsHAgg0inrqLu0Yj1z6gbnbjbeahuWQ/exec";
 
-/* MUSIC STATE */
-let musicStarted = false;
-
-/* OPEN PAGE (NO AUTO PLAY MUSIC) */
+/* OPEN PAGE */
 function openPage(){
   document.getElementById("landing").style.opacity = "0";
 
@@ -291,19 +270,6 @@ function openPage(){
     },50);
 
   },800);
-}
-
-/* MUSIC TOGGLE (USER INTERACTION ONLY) */
-function toggleMusic(){
-  const bgm = document.getElementById("bgm");
-
-  musicStarted = true;
-
-  if(bgm.paused){
-    bgm.play();
-  }else{
-    bgm.pause();
-  }
 }
 
 /* COUNTDOWN */
