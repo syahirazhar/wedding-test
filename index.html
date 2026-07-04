@@ -73,12 +73,7 @@ button{
   max-width:360px;
 }
 
-/* SECTION */
-section{
-  padding:40px 20px;
-}
-
-/* MUSIC */
+/* MUSIC BUTTON */
 .music-btn{
   position:fixed;
   top:15px;
@@ -89,6 +84,11 @@ section{
   padding:10px 12px;
   border-radius:12px;
   font-size:12px;
+}
+
+/* SECTION */
+section{
+  padding:40px 20px;
 }
 
 /* CAROUSEL */
@@ -124,11 +124,6 @@ section{
   text-align:center;
 }
 
-.countdown h2{
-  font-weight:300;
-  letter-spacing:2px;
-}
-
 .count-box{
   display:flex;
   justify-content:center;
@@ -144,12 +139,26 @@ section{
   min-width:70px;
 }
 
-/* MAP */
+/* MAP + WAZE */
 .map{
   width:100%;
-  height:250px;
+  height:220px;
   border:none;
   border-radius:12px;
+}
+
+.waze-btn{
+  display:block;
+  margin:15px auto 0;
+  padding:12px 18px;
+  width:85%;
+  max-width:320px;
+  text-align:center;
+  background:#05c46b;
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
 }
 
 /* RSVP */
@@ -190,7 +199,7 @@ section{
 <!-- MUSIC -->
 <button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
 <audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mp3">
+  <source src="music.mp3">
 </audio>
 
 <!-- LANDING -->
@@ -210,8 +219,9 @@ section{
   </div>
 
   <!-- COUNTDOWN -->
-  <section class="countdown">
-    <h2>Menuju Hari Bahagia</h2>
+  <section>
+    <h2 style="text-align:center;font-weight:300;">Menuju Hari Bahagia</h2>
+
     <div class="count-box">
       <div class="box"><div id="d">0</div><small>Hari</small></div>
       <div class="box"><div id="h">0</div><small>Jam</small></div>
@@ -233,8 +243,14 @@ section{
   <!-- MAP -->
   <section>
     <iframe class="map"
-      src="https://www.google.com/maps?q=Masjid%20Kampung&output=embed">
+      src="https://www.google.com/maps?q=Jalan%20Kontraktor%20U1/14%2C%20Hicom%20Glenmarie%2C%20Shah%20Alam&output=embed">
     </iframe>
+
+    <a class="waze-btn"
+       href="https://waze.com/ul?q=Jalan%20Kontraktor%20U1%2F14%2C%20Hicom-Glenmarie%20Industrial%20Park%2C%2040150%20Shah%20Alam%2C%20Selangor"
+       target="_blank">
+       🚗 Buka dalam Waze
+    </a>
   </section>
 
   <!-- RSVP -->
@@ -256,10 +272,12 @@ section{
 
 <script>
 
-/* WEB APP URL (INI DAH SIAP) */
 const scriptURL = "https://script.google.com/macros/s/AKfycbw9h3Jtk0QOVi0L5zBPz1wb0TU5KG-nPvxrHxyKsHAgg0inrqLu0Yj1z6gbnbjbeahuWQ/exec";
 
-/* OPEN PAGE */
+/* MUSIC STATE */
+let musicStarted = false;
+
+/* OPEN PAGE (NO AUTO PLAY MUSIC) */
 function openPage(){
   document.getElementById("landing").style.opacity = "0";
 
@@ -269,20 +287,26 @@ function openPage(){
 
     setTimeout(()=>{
       document.getElementById("main").style.opacity = "1";
-      document.getElementById("bgm").play().catch(()=>{});
+      document.getElementById("main").style.transform = "translateY(0)";
     },50);
 
   },800);
 }
 
-/* MUSIC */
+/* MUSIC TOGGLE (USER INTERACTION ONLY) */
 function toggleMusic(){
   const bgm = document.getElementById("bgm");
-  if(bgm.paused) bgm.play();
-  else bgm.pause();
+
+  musicStarted = true;
+
+  if(bgm.paused){
+    bgm.play();
+  }else{
+    bgm.pause();
+  }
 }
 
-/* COUNTDOWN (TUKAR TARIKH DI SINI) */
+/* COUNTDOWN */
 const targetDate = new Date("2026-12-31T00:00:00").getTime();
 
 setInterval(()=>{
