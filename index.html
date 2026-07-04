@@ -152,8 +152,8 @@ button.rsvp-btn{
     <h2>RSVP</h2>
 
     <form id="rsvpForm">
-      <input type="text" id="name" placeholder="Nama" required>
-      <input type="number" id="pax" placeholder="Jumlah Pax" required>
+      <input type="text" name="name" placeholder="Nama" required>
+      <input type="number" name="pax" placeholder="Jumlah Pax" required>
       <button class="rsvp-btn" type="submit">Hantar</button>
     </form>
   </div>
@@ -168,7 +168,7 @@ function openPage(){
 }
 
 /* GOOGLE SHEET FORM */
-const scriptURL = "https://script.google.com/macros/s/AKfycbyyIoay5HHqFkY2DMWnMN0zXQekCbNtyKt6IcWilILBH9YUFmq86QvCyQkfMtMM6WKtYA/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbyKR2XfnEc6v6Z7h3QhYHBAVSfw6ozpCFDYFgbi90HhNjfN1eZPgFCcMV0Gs1XkKFRMFA/exec";
 
 document.getElementById("rsvpForm").addEventListener("submit", e=>{
   e.preventDefault();
