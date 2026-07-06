@@ -9,7 +9,6 @@
 
 <body>
 
-  <!-- LANDING VIDEO -->
   <div id="landing" onclick="openPage()">
     <video autoplay muted loop playsinline>
       <source src="intro.mp4" type="video/mp4">
@@ -17,10 +16,8 @@
     <div class="overlay"></div>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div id="main">
 
-    <!-- HERO -->
     <section class="hero reveal">
       <img src="initial.png" class="hero-img img1" alt="Sofea and Syahir Initial">
       <img src="invitation.png" class="hero-img img2" alt="Wedding Invitation Text">
@@ -29,6 +26,42 @@
 
       <p class="venue-date">On Saturday, 12 December 2026</p>
       <p class="venue-name">Kamalinda Secret Garden Hall</p>
+
+      <div class="tentative-card">
+        <h3 class="tentative-title">Tentative</h3>
+
+        <div class="tentative-list">
+          <div class="tentative-item">
+            <p class="tentative-time">6:00 PM</p>
+            <p class="tentative-detail">Wedding Sofea & Syahir</p>
+          </div>
+
+          <div class="tentative-item">
+            <p class="tentative-time">7:00 PM</p>
+            <p class="tentative-detail">Wedding Sofea & Syahir</p>
+          </div>
+
+          <div class="tentative-item">
+            <p class="tentative-time">8:00 PM</p>
+            <p class="tentative-detail">Wedding Sofea & Syahir</p>
+          </div>
+
+          <div class="tentative-item">
+            <p class="tentative-time">9:00 PM</p>
+            <p class="tentative-detail">Wedding Sofea & Syahir</p>
+          </div>
+
+          <div class="tentative-item">
+            <p class="tentative-time">10:00 PM</p>
+            <p class="tentative-detail">Wedding Sofea & Syahir</p>
+          </div>
+
+          <div class="tentative-item">
+            <p class="tentative-time">11:00 PM</p>
+            <p class="tentative-detail">Wedding Sofea & Syahir</p>
+          </div>
+        </div>
+      </div>
 
       <button class="main-btn" type="button" onclick="togglePanel('directionPanel')">
         Direction
@@ -49,7 +82,6 @@
       </div>
     </section>
 
-    <!-- COUNTDOWN -->
     <section class="countdown reveal">
       <h2 class="section-title">Until We Say "I Do"</h2>
       <p class="date-text">12 December 2026</p>
@@ -77,7 +109,6 @@
       </div>
     </section>
 
-    <!-- GALLERY -->
     <section class="gallery reveal">
       <div class="carousel">
         <div class="track">
@@ -96,7 +127,6 @@
       </div>
     </section>
 
-    <!-- CALENDAR -->
     <section class="calendar reveal">
       <h2 class="section-title">Add to Calendar</h2>
       <p class="subtitle">Save our special day</p>
@@ -118,7 +148,6 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section class="contact reveal">
       <h2 class="section-title">Guest Contact</h2>
       <p class="subtitle">For any enquiries, kindly contact us via WhatsApp</p>
@@ -148,14 +177,54 @@
       </div>
     </section>
 
-    <!-- RSVP -->
+    <section class="dress-code reveal">
+      <h2 class="section-title">Dress Code</h2>
+      <p class="subtitle">Color reference for our beloved guests</p>
+
+      <div class="palette-card">
+        <div class="palette-row">
+          <div class="palette-item">
+            <span class="color-circle color-1"></span>
+            <p>Dark Brown</p>
+          </div>
+
+          <div class="palette-item">
+            <span class="color-circle color-2"></span>
+            <p>Brown</p>
+          </div>
+
+          <div class="palette-item">
+            <span class="color-circle color-3"></span>
+            <p>Taupe</p>
+          </div>
+
+          <div class="palette-item">
+            <span class="color-circle color-4"></span>
+            <p>Beige</p>
+          </div>
+
+          <div class="palette-item">
+            <span class="color-circle color-5"></span>
+            <p>Cream</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="rsvp reveal">
       <h2 class="section-title">RSVP</h2>
-      <p class="subtitle">Kindly let us know your attendance</p>
+      <p class="subtitle">Kindly let us know your attendance and leave us a message</p>
 
       <form id="rsvpForm">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="number" name="pax" placeholder="Number of Guests" required>
+
+        <textarea
+          id="messageInput"
+          name="message"
+          placeholder="Your Message / Wishes"></textarea>
+
+        <p id="charCounter">0 / 200 words</p>
 
         <button type="submit" id="submitBtn" class="main-btn">
           Send RSVP
@@ -165,10 +234,32 @@
       <p id="msg"></p>
     </section>
 
+    <section class="guest-messages reveal">
+      <h2 class="section-title">Messages</h2>
+      <p class="subtitle">Warm wishes from our guests</p>
+
+      <div class="message-card">
+        <p id="guestMessageText">Your wishes will appear here soon.</p>
+        <p id="guestMessageName"></p>
+      </div>
+    </section>
+
     <div class="footer reveal">
       Made with care for a special day
     </div>
 
+  </div>
+
+  <div id="successPopup" class="popup">
+    <div class="popup-box">
+      <h2>Thank You</h2>
+      <p>Sofea & Syahir have received your RSVP.</p>
+      <p class="popup-small">Your message has been sent successfully.</p>
+
+      <button type="button" onclick="closePopup()">
+        Close
+      </button>
+    </div>
   </div>
 
   <script src="script.js"></script>
