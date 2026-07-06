@@ -6,17 +6,15 @@
 <title>Wedding Invitation</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-<!-- LANDING (TAP ANYWHERE) -->
+<!-- LANDING (tap anywhere) -->
 <div id="landing" onclick="openPage()">
   <video autoplay muted loop playsinline>
     <source src="intro.mp4">
   </video>
-
   <div class="overlay"></div>
 </div>
 
@@ -34,25 +32,10 @@
     <p class="date-text">12 December 2026</p>
 
     <div class="count-box">
-      <div class="box">
-        <div id="days">0</div>
-        <small>Days</small>
-      </div>
-
-      <div class="box">
-        <div id="hours">0</div>
-        <small>Hours</small>
-      </div>
-
-      <div class="box">
-        <div id="minutes">0</div>
-        <small>Minutes</small>
-      </div>
-
-      <div class="box">
-        <div id="seconds">0</div>
-        <small>Seconds</small>
-      </div>
+      <div class="box"><div id="days">0</div><small>Days</small></div>
+      <div class="box"><div id="hours">0</div><small>Hours</small></div>
+      <div class="box"><div id="minutes">0</div><small>Minutes</small></div>
+      <div class="box"><div id="seconds">0</div><small>Seconds</small></div>
     </div>
   </section>
 
@@ -79,16 +62,9 @@
   <section class="location">
 
     <h2>Venue</h2>
-
     <p>KAMALINDA SIGNATURE WEDDING</p>
 
-    <iframe
-      class="map"
-      src="https://www.google.com/maps?q=Kamalinda%20Signature%20Wedding&output=embed">
-    </iframe>
-
     <div class="map-buttons">
-
       <a class="map-btn google"
          href="https://www.google.com/maps/search/?api=1&query=Kamalinda+Signature+Wedding"
          target="_blank">
@@ -100,7 +76,6 @@
          target="_blank">
          Waze
       </a>
-
     </div>
 
   </section>
@@ -114,14 +89,12 @@
     <div class="calendar-buttons">
 
       <a class="cal-btn"
-         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Sofea%20%26%20Syahir&dates=20261212T120000/20261212T160000&details=Wedding%20Invitation&location=Kamalinda%20Signature%20Wedding"
+         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Sofea%20%26%20Syahir&dates=20261212T120000/20261212T160000&location=Kamalinda%20Signature%20Wedding"
          target="_blank">
          Google Calendar
       </a>
 
-      <a class="cal-btn"
-         href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261212T120000%0ADTEND:20261212T160000%0ASUMMARY:Wedding Sofea & Syahir%0ALOCATION:Kamalinda Signature Wedding%0AEND:VEVENT%0AEND:VCALENDAR"
-         download="wedding.ics">
+      <a class="cal-btn" onclick="downloadICS()">
          Apple Calendar
       </a>
 
@@ -133,7 +106,6 @@
   <section class="rsvp">
 
     <h2>RSVP</h2>
-
     <p class="subtitle">Kindly let us know your attendance</p>
 
     <form id="rsvpForm">

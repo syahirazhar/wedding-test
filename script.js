@@ -1,88 +1,79 @@
 
-/* =========================
-   LANDING CONTROL
-========================= */
-
+/* LANDING */
 function openPage(){
-  const landing = document.getElementById("landing");
-  const main = document.getElementById("main");
-
-  landing.style.opacity = "0";
-
-  setTimeout(()=>{
-    landing.style.display = "none";
-    main.style.display = "block";
-
-    setTimeout(()=>{
-      main.style.opacity = "1";
-    },50);
-
-  },700);
+  document.getElementById("landing").style.display = "none";
+  document.getElementById("main").style.display = "block";
 }
 
-/* =========================
-   COUNTDOWN (12 DEC 2026)
-========================= */
-
+/* COUNTDOWN */
 const targetDate = new Date("2026-12-12T00:00:00").getTime();
 
 function updateCountdown(){
   const now = new Date().getTime();
   const diff = targetDate - now;
 
-  if(diff <= 0){
-    document.getElementById("days").innerText = 0;
-    document.getElementById("hours").innerText = 0;
-    document.getElementById("minutes").innerText = 0;
-    document.getElementById("seconds").innerText = 0;
-    return;
-  }
+  document.getElementById("days").innerText =
+    Math.floor(diff / (1000*60*60*24));
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  document.getElementById("hours").innerText =
+    Math.floor((diff / (1000*60*60)) % 24);
 
-  document.getElementById("days").innerText = days;
-  document.getElementById("hours").innerText = hours;
-  document.getElementById("minutes").innerText = minutes;
-  document.getElementById("seconds").innerText = seconds;
+  document.getElementById("minutes").innerText =
+    Math.floor((diff / (1000*60)) % 60);
+
+  document.getElementById("seconds").innerText =
+    Math.floor((diff / 1000) % 60);
 }
 
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 updateCountdown();
 
-/* =========================
-   RSVP GOOGLE SHEETS
-========================= */
-
-const scriptURL = "https://script.google.com/macros/s/AKfycbw9h3Jtk0QOVi0L5zBPz1wb0TU5KG-nPvxrHxyKsHAgg0inrqLu0Yj1z6gbnbjbeahuWQ/exec";
-
+/* RSVP */
 const form = document.getElementById("rsvpForm");
 const msg = document.getElementById("msg");
 
 form.addEventListener("submit", function(e){
   e.preventDefault();
 
-  const btn = form.querySelector("button");
+  const btn = document.getElementById("submitBtn");
   btn.innerText = "Sending...";
   btn.disabled = true;
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: new FormData(form)
+  fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+    method:"POST",
+    body:new FormData(form)
   })
-  .then(response => {
+  .then(()=>{
     msg.innerText = "Sofea & Syahir have received your RSVP";
-    msg.style.color = "green";
     form.reset();
   })
-  .catch(error => {
-    msg.innerText = "Something went wrong. Please try again.";
-    msg.style.color = "red";
+  .catch(()=>{
+    msg.innerText = "Error. Try again.";
   })
   .finally(()=>{
     btn.innerText = "Send RSVP";
     btn.disabled = false;
   });
 });
+
+/* APPLE CALENDAR FIX */
+function downloadICS(){
+
+  const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Wedding Sofea & Syahir
+DTSTART:20261212T120000
+DTEND:20261212T160000
+LOCATION:Kamalinda Signature Wedding
+END:VEVENT
+END:VCALENDAR`;
+
+  const blob = new Blob([ics],{type:"text/calendar"});
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "wedding.ics";
+  a.click();
+}
