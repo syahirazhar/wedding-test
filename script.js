@@ -1,5 +1,6 @@
+
 /* =========================
-   LANDING PAGE CONTROL
+   LANDING CONTROL
 ========================= */
 
 function openPage(){
@@ -11,8 +12,12 @@ function openPage(){
   setTimeout(()=>{
     landing.style.display = "none";
     main.style.display = "block";
-    main.style.opacity = "1";
-  }, 700);
+
+    setTimeout(()=>{
+      main.style.opacity = "1";
+    },50);
+
+  },700);
 }
 
 /* =========================
@@ -59,7 +64,7 @@ const msg = document.getElementById("msg");
 form.addEventListener("submit", function(e){
   e.preventDefault();
 
-  const btn = document.getElementById("submitBtn");
+  const btn = form.querySelector("button");
   btn.innerText = "Sending...";
   btn.disabled = true;
 
@@ -67,14 +72,13 @@ form.addEventListener("submit", function(e){
     method: "POST",
     body: new FormData(form)
   })
-  .then(res => {
-    msg.innerText = "RSVP received. Thank you!";
+  .then(response => {
+    msg.innerText = "Sofea & Syahir have received your RSVP";
     msg.style.color = "green";
-
     form.reset();
   })
-  .catch(err => {
-    msg.innerText = "Something went wrong. Try again.";
+  .catch(error => {
+    msg.innerText = "Something went wrong. Please try again.";
     msg.style.color = "red";
   })
   .finally(()=>{

@@ -11,21 +11,19 @@
 
 <body>
 
-<!-- LANDING -->
-<div id="landing">
+<!-- LANDING (TAP ANYWHERE) -->
+<div id="landing" onclick="openPage()">
   <video autoplay muted loop playsinline>
     <source src="intro.mp4">
   </video>
 
   <div class="overlay"></div>
-
-  <button onclick="openPage()">Open Invitation</button>
 </div>
 
 <!-- MAIN -->
 <div id="main">
 
-  <!-- HEADER -->
+  <!-- HERO -->
   <section class="hero">
     <img src="tajuk.png" class="title-img">
   </section>
@@ -33,7 +31,6 @@
   <!-- COUNTDOWN -->
   <section class="countdown">
     <h2>Until We Say "I Do"</h2>
-
     <p class="date-text">12 December 2026</p>
 
     <div class="count-box">
@@ -83,22 +80,52 @@
 
     <h2>Venue</h2>
 
-    <p>
-      Jalan Kontraktor U1/14<br>
-      Hicom-Glenmarie Industrial Park<br>
-      40150 Shah Alam, Selangor
-    </p>
+    <p>KAMALINDA SIGNATURE WEDDING</p>
 
     <iframe
       class="map"
-      src="https://www.google.com/maps?q=Jalan%20Kontraktor%20U1/14%20Hicom%20Glenmarie%20Shah%20Alam&output=embed">
+      src="https://www.google.com/maps?q=Kamalinda%20Signature%20Wedding&output=embed">
     </iframe>
 
-    <a class="waze-btn"
-       href="https://waze.com/ul?q=Jalan%20Kontraktor%20U1/14%20Hicom-Glenmarie%20Industrial%20Park%2040150%20Shah%20Alam"
-       target="_blank">
-       Open in Waze
-    </a>
+    <div class="map-buttons">
+
+      <a class="map-btn google"
+         href="https://www.google.com/maps/search/?api=1&query=Kamalinda+Signature+Wedding"
+         target="_blank">
+         Google Maps
+      </a>
+
+      <a class="map-btn waze"
+         href="https://waze.com/ul?q=Kamalinda+Signature+Wedding"
+         target="_blank">
+         Waze
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="calendar">
+
+    <h2>Add to Calendar</h2>
+    <p>Save our special day</p>
+
+    <div class="calendar-buttons">
+
+      <a class="cal-btn"
+         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Sofea%20%26%20Syahir&dates=20261212T120000/20261212T160000&details=Wedding%20Invitation&location=Kamalinda%20Signature%20Wedding"
+         target="_blank">
+         Google Calendar
+      </a>
+
+      <a class="cal-btn"
+         href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261212T120000%0ADTEND:20261212T160000%0ASUMMARY:Wedding Sofea & Syahir%0ALOCATION:Kamalinda Signature Wedding%0AEND:VEVENT%0AEND:VCALENDAR"
+         download="wedding.ics">
+         Apple Calendar
+      </a>
+
+    </div>
 
   </section>
 
@@ -107,9 +134,7 @@
 
     <h2>RSVP</h2>
 
-    <p class="subtitle">
-      Kindly let us know your attendance
-    </p>
+    <p class="subtitle">Kindly let us know your attendance</p>
 
     <form id="rsvpForm">
       <input type="text" name="name" placeholder="Your Name" required>
@@ -121,6 +146,7 @@
 
   </section>
 
+  <!-- FOOTER -->
   <div class="footer">
     Made with care for a special day
   </div>
