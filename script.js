@@ -1,8 +1,36 @@
 function openPage(){
-  document.getElementById("landing").style.display = "none";
-  document.getElementById("main").style.display = "block";
+  const landing = document.getElementById("landing");
+  const main = document.getElementById("main");
+
+  landing.classList.add("hide");
+
+  setTimeout(()=>{
+    landing.style.display = "none";
+    main.style.display = "block";
+
+    setTimeout(()=>{
+      main.classList.add("show");
+      revealOnScroll();
+    },50);
+
+  },900);
 }
 
+/* SLIDE PANEL */
+function togglePanel(panelId){
+  const selectedPanel = document.getElementById(panelId);
+  const allPanels = document.querySelectorAll(".slide-panel");
+
+  allPanels.forEach(panel=>{
+    if(panel !== selectedPanel){
+      panel.classList.remove("open");
+    }
+  });
+
+  selectedPanel.classList.toggle("open");
+}
+
+/* COUNTDOWN */
 const targetDate = new Date("2026-12-12T00:00:00").getTime();
 
 function updateCountdown(){
@@ -33,6 +61,24 @@ function updateCountdown(){
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
+/* SCROLL REVEAL */
+function revealOnScroll(){
+  const reveals = document.querySelectorAll(".reveal");
+
+  reveals.forEach(item=>{
+    const windowHeight = window.innerHeight;
+    const itemTop = item.getBoundingClientRect().top;
+    const revealPoint = 90;
+
+    if(itemTop < windowHeight - revealPoint){
+      item.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+
+/* RSVP */
 const form = document.getElementById("rsvpForm");
 const msg = document.getElementById("msg");
 
@@ -51,6 +97,13 @@ form.addEventListener("submit", e=>{
   .then(()=>{
     msg.innerText = "Sofea & Syahir have received your RSVP";
     msg.style.color = "#4A2C2A";
+    msg.style.opacity = "0";
+
+    setTimeout(()=>{
+      msg.style.transition = "opacity 500ms ease";
+      msg.style.opacity = "1";
+    },50);
+
     form.reset();
   })
   .catch(()=>{
@@ -63,6 +116,7 @@ form.addEventListener("submit", e=>{
   });
 });
 
+/* APPLE CALENDAR */
 function downloadICS(){
   const ics = `BEGIN:VCALENDAR
 VERSION:2.0

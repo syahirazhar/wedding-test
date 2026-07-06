@@ -1,109 +1,177 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="landing" onclick="openPage()">
-  <video autoplay muted loop playsinline>
-    <source src="intro.mp4">
-  </video>
-  <div class="overlay"></div>
-</div>
-
-<div id="main">
-
-  <section class="hero">
-    <img src="initial.png" class="hero-img img1" alt="Sofea and Syahir Initial">
-    <img src="invitation.png" class="hero-img img2" alt="Wedding Invitation Text">
-
-    <h2 class="section-title">Meet Us At</h2>
-
-    <p class="venue-date">On Saturday, 12 December 2026</p>
-    <p class="venue-name">Kamalinda Secret Garden Hall</p>
-
-    <div class="map-buttons">
-      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Kamalinda+Secret+Garden+Hall" target="_blank">
-        Google Maps
-      </a>
-
-      <a class="map-btn" href="https://waze.com/ul?q=Kamalinda+Secret+Garden+Hall" target="_blank">
-        Waze
-      </a>
-    </div>
-  </section>
-
-  <section class="countdown">
-    <h2 class="section-title">Until We Say "I Do"</h2>
-    <p class="date-text">12 December 2026</p>
-
-    <div class="count-box">
-      <div class="box"><div id="days">0</div><small>Days</small></div>
-      <div class="box"><div id="hours">0</div><small>Hours</small></div>
-      <div class="box"><div id="minutes">0</div><small>Minutes</small></div>
-      <div class="box"><div id="seconds">0</div><small>Seconds</small></div>
-    </div>
-  </section>
-
-  <section class="gallery">
-    <div class="carousel">
-      <div class="track">
-        <img src="g1.jpg">
-        <img src="g2.jpg">
-        <img src="g3.jpg">
-        <img src="g4.jpg">
-        <img src="g5.jpg">
-
-        <img src="g1.jpg">
-        <img src="g2.jpg">
-        <img src="g3.jpg">
-        <img src="g4.jpg">
-        <img src="g5.jpg">
-      </div>
-    </div>
-  </section>
-
-  <section class="calendar">
-    <h2 class="section-title">Add to Calendar</h2>
-    <p class="subtitle">Save our special day</p>
-
-    <div class="calendar-buttons">
-      <a class="cal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Sofea%20%26%20Syahir&dates=20261212T120000/20261212T160000&location=Kamalinda%20Secret%20Garden%20Hall" target="_blank">
-        Google Calendar
-      </a>
-
-      <a class="cal-btn" onclick="downloadICS()">
-        Apple Calendar
-      </a>
-    </div>
-  </section>
-
-  <section class="rsvp">
-    <h2 class="section-title">RSVP</h2>
-    <p class="subtitle">Kindly let us know your attendance</p>
-
-    <form id="rsvpForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="number" name="pax" placeholder="Number of Guests" required>
-      <button type="submit" id="submitBtn">Send RSVP</button>
-    </form>
-
-    <p id="msg"></p>
-  </section>
-
-  <div class="footer">
-    Made with care for a special day
+  <!-- LANDING VIDEO -->
+  <div id="landing" onclick="openPage()">
+    <video autoplay muted loop playsinline>
+      <source src="intro.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
   </div>
 
-</div>
+  <!-- MAIN CONTENT -->
+  <div id="main">
 
-<script src="script.js"></script>
+    <!-- HERO -->
+    <section class="hero reveal">
+      <img src="initial.png" class="hero-img img1" alt="Sofea and Syahir Initial">
+      <img src="invitation.png" class="hero-img img2" alt="Wedding Invitation Text">
+
+      <h2 class="section-title">Meet Us At</h2>
+
+      <p class="venue-date">On Saturday, 12 December 2026</p>
+      <p class="venue-name">Kamalinda Secret Garden Hall</p>
+
+      <button class="main-btn" type="button" onclick="togglePanel('directionPanel')">
+        Direction
+      </button>
+
+      <div id="directionPanel" class="slide-panel">
+        <a class="option-btn"
+           href="https://www.google.com/maps/search/?api=1&query=Kamalinda+Secret+Garden+Hall"
+           target="_blank">
+          Google Maps
+        </a>
+
+        <a class="option-btn"
+           href="https://waze.com/ul?q=Kamalinda+Secret+Garden+Hall"
+           target="_blank">
+          Waze
+        </a>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="countdown reveal">
+      <h2 class="section-title">Until We Say "I Do"</h2>
+      <p class="date-text">12 December 2026</p>
+
+      <div class="count-box">
+        <div class="box">
+          <div id="days">0</div>
+          <small>Days</small>
+        </div>
+
+        <div class="box">
+          <div id="hours">0</div>
+          <small>Hours</small>
+        </div>
+
+        <div class="box">
+          <div id="minutes">0</div>
+          <small>Minutes</small>
+        </div>
+
+        <div class="box">
+          <div id="seconds">0</div>
+          <small>Seconds</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery reveal">
+      <div class="carousel">
+        <div class="track">
+          <img src="g1.jpg" alt="Gallery 1">
+          <img src="g2.jpg" alt="Gallery 2">
+          <img src="g3.jpg" alt="Gallery 3">
+          <img src="g4.jpg" alt="Gallery 4">
+          <img src="g5.jpg" alt="Gallery 5">
+
+          <img src="g1.jpg" alt="Gallery 1">
+          <img src="g2.jpg" alt="Gallery 2">
+          <img src="g3.jpg" alt="Gallery 3">
+          <img src="g4.jpg" alt="Gallery 4">
+          <img src="g5.jpg" alt="Gallery 5">
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section class="calendar reveal">
+      <h2 class="section-title">Add to Calendar</h2>
+      <p class="subtitle">Save our special day</p>
+
+      <button class="main-btn" type="button" onclick="togglePanel('calendarPanel')">
+        Add to Calendar
+      </button>
+
+      <div id="calendarPanel" class="slide-panel">
+        <a class="option-btn"
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Sofea%20%26%20Syahir&dates=20261212T120000/20261212T160000&location=Kamalinda%20Secret%20Garden%20Hall"
+           target="_blank">
+          Google Calendar
+        </a>
+
+        <button class="option-btn" type="button" onclick="downloadICS()">
+          Apple Calendar
+        </button>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact reveal">
+      <h2 class="section-title">Guest Contact</h2>
+      <p class="subtitle">For any enquiries, kindly contact us via WhatsApp</p>
+
+      <button class="main-btn" type="button" onclick="togglePanel('contactPanel')">
+        Contact Person
+      </button>
+
+      <div id="contactPanel" class="slide-panel">
+        <a class="option-btn"
+           href="https://wa.me/60183777956?text=Hi%2C%20I%20would%20like%20to%20ask%20about%20the%20wedding%20invitation."
+           target="_blank">
+          WhatsApp 1
+        </a>
+
+        <a class="option-btn"
+           href="https://wa.me/60183777956?text=Hi%2C%20I%20need%20help%20with%20the%20venue%20location."
+           target="_blank">
+          WhatsApp 2
+        </a>
+
+        <a class="option-btn"
+           href="https://wa.me/60183777956?text=Hi%2C%20I%20would%20like%20to%20confirm%20something%20about%20the%20event."
+           target="_blank">
+          WhatsApp 3
+        </a>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="rsvp reveal">
+      <h2 class="section-title">RSVP</h2>
+      <p class="subtitle">Kindly let us know your attendance</p>
+
+      <form id="rsvpForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="number" name="pax" placeholder="Number of Guests" required>
+
+        <button type="submit" id="submitBtn" class="main-btn">
+          Send RSVP
+        </button>
+      </form>
+
+      <p id="msg"></p>
+    </section>
+
+    <div class="footer reveal">
+      Made with care for a special day
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
 
 </body>
 </html>
