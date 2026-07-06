@@ -3,183 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invite</title>
+<title>Wedding Invitation</title>
 
-<style>
+<link rel="stylesheet" href="style.css">
 
-body{
-  margin:0;
-  font-family:sans-serif;
-  overflow-x:hidden;
-  background:#fff;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-/* LANDING */
-#landing{
-  position:fixed;
-  inset:0;
-  z-index:10;
-  transition:opacity 0.8s ease;
-}
-
-#landing video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.35);
-}
-
-/* BUTTON */
-button{
-  position:absolute;
-  bottom:90px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:14px 42px;
-  border:none;
-  border-radius:40px;
-  font-size:15px;
-  background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(8px);
-  cursor:pointer;
-}
-
-/* MAIN */
-#main{
-  display:none;
-  opacity:0;
-  transform:translateY(20px);
-  transition:all 0.8s ease;
-}
-
-/* HEADER */
-.header-img{
-  display:flex;
-  justify-content:center;
-  margin-top:30px;
-}
-
-.header-img img{
-  width:78%;
-  max-width:360px;
-}
-
-/* SECTION */
-section{
-  padding:40px 20px;
-}
-
-/* CAROUSEL */
-.carousel-wrapper{
-  overflow:hidden;
-}
-
-.carousel-track{
-  display:flex;
-  width:max-content;
-  animation:scroll 22s linear infinite;
-}
-
-.carousel-track img{
-  width:220px;
-  height:220px;
-  object-fit:cover;
-  margin-right:12px;
-  border-radius:14px;
-}
-
-.carousel-wrapper:hover .carousel-track{
-  animation-play-state:paused;
-}
-
-@keyframes scroll{
-  from{transform:translateX(0);}
-  to{transform:translateX(-50%);}
-}
-
-/* COUNTDOWN */
-.countdown{
-  text-align:center;
-}
-
-.count-box{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.box{
-  padding:12px 16px;
-  border:1px solid #eee;
-  border-radius:10px;
-  min-width:70px;
-}
-
-/* MAP */
-.map{
-  width:100%;
-  height:220px;
-  border:none;
-  border-radius:12px;
-}
-
-/* WAZE */
-.waze-btn{
-  display:block;
-  margin:15px auto 0;
-  padding:12px 18px;
-  width:85%;
-  max-width:320px;
-  text-align:center;
-  background:#05c46b;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
-}
-
-/* RSVP */
-.rsvp{
-  text-align:center;
-}
-
-.rsvp input{
-  width:85%;
-  max-width:320px;
-  padding:12px;
-  margin-top:10px;
-  border:1px solid #ddd;
-  border-radius:10px;
-}
-
-.rsvp button{
-  position:static;
-  transform:none;
-  margin-top:15px;
-  width:85%;
-  max-width:320px;
-  background:black;
-  color:white;
-  border-radius:10px;
-}
-
-#msg{
-  margin-top:10px;
-  font-size:14px;
-}
-
-</style>
 </head>
 
 <body>
@@ -189,132 +16,118 @@ section{
   <video autoplay muted loop playsinline>
     <source src="intro.mp4">
   </video>
+
   <div class="overlay"></div>
-  <button onclick="openPage()">Buka Jemputan</button>
+
+  <button onclick="openPage()">Open Invitation</button>
 </div>
 
 <!-- MAIN -->
 <div id="main">
 
-  <div class="header-img">
-    <img src="tajuk.png">
-  </div>
-
-  <!-- COUNTDOWN -->
-  <section>
-    <h2 style="text-align:center;font-weight:300;">Menuju Hari Bahagia</h2>
-
-    <div class="count-box">
-      <div class="box"><div id="d">0</div><small>Hari</small></div>
-      <div class="box"><div id="h">0</div><small>Jam</small></div>
-      <div class="box"><div id="m">0</div><small>Minit</small></div>
-      <div class="box"><div id="s">0</div><small>Saat</small></div>
-    </div>
+  <!-- HEADER -->
+  <section class="hero">
+    <img src="tajuk.png" class="title-img">
   </section>
 
-  <!-- GALLERY -->
-  <section>
-    <div class="carousel-wrapper">
-      <div class="carousel-track">
-        <img src="g1.jpg"><img src="g2.jpg"><img src="g3.jpg"><img src="g4.jpg"><img src="g5.jpg">
-        <img src="g1.jpg"><img src="g2.jpg"><img src="g3.jpg"><img src="g4.jpg"><img src="g5.jpg">
+  <!-- COUNTDOWN -->
+  <section class="countdown">
+    <h2>Until We Say "I Do"</h2>
+
+    <p class="date-text">12 December 2026</p>
+
+    <div class="count-box">
+      <div class="box">
+        <div id="days">0</div>
+        <small>Days</small>
+      </div>
+
+      <div class="box">
+        <div id="hours">0</div>
+        <small>Hours</small>
+      </div>
+
+      <div class="box">
+        <div id="minutes">0</div>
+        <small>Minutes</small>
+      </div>
+
+      <div class="box">
+        <div id="seconds">0</div>
+        <small>Seconds</small>
       </div>
     </div>
   </section>
 
-  <!-- MAP -->
-  <section>
-    <iframe class="map"
-      src="https://www.google.com/maps?q=Jalan%20Kontraktor%20U1/14%2C%20Hicom%20Glenmarie%2C%20Shah%20Alam&output=embed">
-    </iframe>
+  <!-- GALLERY -->
+  <section class="gallery">
+    <div class="carousel">
+      <div class="track">
+        <img src="g1.jpg">
+        <img src="g2.jpg">
+        <img src="g3.jpg">
+        <img src="g4.jpg">
+        <img src="g5.jpg">
 
-    <a class="waze-btn"
-       href="https://waze.com/ul?q=Jalan%20Kontraktor%20U1%2F14%2C%20Hicom-Glenmarie%20Industrial%20Park%2C%2040150%20Shah%20Alam%2C%20Selangor"
-       target="_blank">
-       🚗 Buka dalam Waze
-    </a>
-  </section>
-
-  <!-- RSVP -->
-  <section>
-    <div class="rsvp">
-      <h2>RSVP</h2>
-
-      <form id="rsvpForm">
-        <input type="text" name="name" placeholder="Nama" required>
-        <input type="number" name="pax" placeholder="Jumlah Pax" required>
-        <button type="submit" id="submitBtn">Hantar</button>
-      </form>
-
-      <div id="msg"></div>
+        <img src="g1.jpg">
+        <img src="g2.jpg">
+        <img src="g3.jpg">
+        <img src="g4.jpg">
+        <img src="g5.jpg">
+      </div>
     </div>
   </section>
 
+  <!-- LOCATION -->
+  <section class="location">
+
+    <h2>Venue</h2>
+
+    <p>
+      Jalan Kontraktor U1/14<br>
+      Hicom-Glenmarie Industrial Park<br>
+      40150 Shah Alam, Selangor
+    </p>
+
+    <iframe
+      class="map"
+      src="https://www.google.com/maps?q=Jalan%20Kontraktor%20U1/14%20Hicom%20Glenmarie%20Shah%20Alam&output=embed">
+    </iframe>
+
+    <a class="waze-btn"
+       href="https://waze.com/ul?q=Jalan%20Kontraktor%20U1/14%20Hicom-Glenmarie%20Industrial%20Park%2040150%20Shah%20Alam"
+       target="_blank">
+       Open in Waze
+    </a>
+
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp">
+
+    <h2>RSVP</h2>
+
+    <p class="subtitle">
+      Kindly let us know your attendance
+    </p>
+
+    <form id="rsvpForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="number" name="pax" placeholder="Number of Guests" required>
+      <button type="submit" id="submitBtn">Send RSVP</button>
+    </form>
+
+    <p id="msg"></p>
+
+  </section>
+
+  <div class="footer">
+    Made with care for a special day
+  </div>
+
 </div>
 
-<script>
-
-const scriptURL = "https://script.google.com/macros/s/AKfycbw9h3Jtk0QOVi0L5zBPz1wb0TU5KG-nPvxrHxyKsHAgg0inrqLu0Yj1z6gbnbjbeahuWQ/exec";
-
-/* OPEN PAGE */
-function openPage(){
-  document.getElementById("landing").style.opacity = "0";
-
-  setTimeout(()=>{
-    document.getElementById("landing").style.display = "none";
-    document.getElementById("main").style.display = "block";
-
-    setTimeout(()=>{
-      document.getElementById("main").style.opacity = "1";
-      document.getElementById("main").style.transform = "translateY(0)";
-    },50);
-
-  },800);
-}
-
-/* COUNTDOWN */
-const targetDate = new Date("2026-12-31T00:00:00").getTime();
-
-setInterval(()=>{
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-
-  document.getElementById("d").innerText = Math.floor(diff/(1000*60*60*24));
-  document.getElementById("h").innerText = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  document.getElementById("m").innerText = Math.floor((diff%(1000*60*60))/(1000*60));
-  document.getElementById("s").innerText = Math.floor((diff%(1000*60))/1000);
-},1000);
-
-/* RSVP */
-document.getElementById("rsvpForm").addEventListener("submit", async (e)=>{
-  e.preventDefault();
-
-  const btn = document.getElementById("submitBtn");
-  const msg = document.getElementById("msg");
-
-  btn.disabled = true;
-  btn.innerText = "Menghantar...";
-
-  try{
-    await fetch(scriptURL, {
-      method:"POST",
-      body:new FormData(e.target)
-    });
-
-    msg.innerText = "RSVP berjaya dihantar";
-    msg.style.color = "green";
-    e.target.reset();
-
-  }catch(err){
-    msg.innerText = "Gagal hantar";
-    msg.style.color = "red";
-  }
-
-  btn.disabled = false;
-  btn.innerText = "Hantar";
-});
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
