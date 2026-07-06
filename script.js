@@ -1,5 +1,4 @@
 
-/* LANDING */
 function openPage(){
   document.getElementById("landing").style.display = "none";
   document.getElementById("main").style.display = "block";
@@ -13,16 +12,16 @@ function updateCountdown(){
   const diff = targetDate - now;
 
   document.getElementById("days").innerText =
-    Math.floor(diff / (1000*60*60*24));
+    Math.floor(diff/(1000*60*60*24));
 
   document.getElementById("hours").innerText =
-    Math.floor((diff / (1000*60*60)) % 24);
+    Math.floor((diff/(1000*60*60))%24);
 
   document.getElementById("minutes").innerText =
-    Math.floor((diff / (1000*60)) % 60);
+    Math.floor((diff/(1000*60))%60);
 
   document.getElementById("seconds").innerText =
-    Math.floor((diff / 1000) % 60);
+    Math.floor((diff/1000)%60);
 }
 
 setInterval(updateCountdown,1000);
@@ -32,14 +31,10 @@ updateCountdown();
 const form = document.getElementById("rsvpForm");
 const msg = document.getElementById("msg");
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", e=>{
   e.preventDefault();
 
-  const btn = document.getElementById("submitBtn");
-  btn.innerText = "Sending...";
-  btn.disabled = true;
-
-  fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+  fetch("YOUR_GOOGLE_SCRIPT_URL_HERE",{
     method:"POST",
     body:new FormData(form)
   })
@@ -49,14 +44,10 @@ form.addEventListener("submit", function(e){
   })
   .catch(()=>{
     msg.innerText = "Error. Try again.";
-  })
-  .finally(()=>{
-    btn.innerText = "Send RSVP";
-    btn.disabled = false;
   });
 });
 
-/* APPLE CALENDAR FIX */
+/* APPLE CALENDAR */
 function downloadICS(){
 
   const ics = `BEGIN:VCALENDAR
@@ -65,7 +56,7 @@ BEGIN:VEVENT
 SUMMARY:Wedding Sofea & Syahir
 DTSTART:20261212T120000
 DTEND:20261212T160000
-LOCATION:Kamalinda Signature Wedding
+LOCATION:Kamalinda Secret Garden Hall
 END:VEVENT
 END:VCALENDAR`;
 
