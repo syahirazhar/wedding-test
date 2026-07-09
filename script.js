@@ -3,8 +3,32 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbw9h3Jtk0QOVi0L5zBPz1
 let guestMessages = [];
 let currentMessageIndex = 0;
 let messageRotationTimer = null;
+let isMusicPlaying = false;
 
 const maxWords = 200;
+
+/* PRELOADER */
+function hidePreloader(){
+  const preloader = document.getElementById("preloader");
+
+  if(preloader){
+    preloader.classList.add("hide");
+
+    setTimeout(()=>{
+      preloader.style.display = "none";
+    },900);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  setTimeout(()=>{
+    hidePreloader();
+  },800);
+});
+
+setTimeout(()=>{
+  hidePreloader();
+},2500);
 
 function openPage(){
   const landing = document.getElementById("landing");
@@ -25,10 +49,105 @@ function openPage(){
   },900);
 }
 
+/* MUSIC */
+function toggleMusic(){
+  const music = document.getElementById("weddingMusic");
+  const musicBtn = document.getElementById("musicBtn");
+
+  if(!music || !musicBtn){
+    return;
+  }
+
+  if(isMusicPlaying){
+    music.pause();
+    music.currentTime = 0;
+    musicBtn.innerText = "♪";
+    musicBtn.classList.remove("playing");
+    isMusicPlaying = false;
+    return;
+  }
+
+  music.pause();
+  music.currentTime = 0;
+  music.volume = 0.55;
+
+  music.play()
+    .then(()=>{
+      musicBtn.innerText = "■";
+      musicBtn.classList.add("playing");
+      isMusicPlaying = true;
+    })
+    .catch(()=>{
+      music.pause();
+      music.currentTime = 0;
+      musicBtn.innerText = "♪";
+      musicBtn.classList.remove("playing");
+      isMusicPlaying = false;
+    });
+}
+
+const weddingMusic = document.getElementById("weddingMusic");
+
+if(weddingMusic){
+  weddingMusic.addEventListener("ended", ()=>{
+    const musicBtn = document.getElementById("musicBtn");
+
+    weddingMusic.currentTime = 0;
+    isMusicPlaying = false;
+
+    if(musicBtn){
+      musicBtn.innerText = "♪";
+      musicBtn.classList.remove("playing");
+    }
+  });
+}
+
+/* FLOATING MENU */
+function toggleFloatingMenu(){
+  const panel = document.getElementById("floatingMenuPanel");
+
+  if(panel){
+    panel.classList.toggle("open");
+  }
+}
+
+function closeFloatingMenu(){
+  const panel = document.getElementById("floatingMenuPanel");
+
+  if(panel){
+    panel.classList.remove("open");
+  }
+}
+
+function scrollToSection(sectionId){
+  const section = document.getElementById(sectionId);
+
+  if(section){
+    section.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }
+
+  closeFloatingMenu();
+}
+
+function goToPanel(sectionId, panelId){
+  scrollToSection(sectionId);
+
+  setTimeout(()=>{
+    openPanel(panelId);
+  },450);
+}
+
 /* SLIDE PANEL */
 function togglePanel(panelId){
   const selectedPanel = document.getElementById(panelId);
   const allPanels = document.querySelectorAll(".slide-panel");
+
+  if(!selectedPanel){
+    return;
+  }
 
   allPanels.forEach(panel=>{
     if(panel !== selectedPanel){
@@ -37,6 +156,19 @@ function togglePanel(panelId){
   });
 
   selectedPanel.classList.toggle("open");
+}
+
+function openPanel(panelId){
+  const selectedPanel = document.getElementById(panelId);
+  const allPanels = document.querySelectorAll(".slide-panel");
+
+  allPanels.forEach(panel=>{
+    panel.classList.remove("open");
+  });
+
+  if(selectedPanel){
+    selectedPanel.classList.add("open");
+  }
 }
 
 /* MESSAGE WORD COUNTER */
@@ -54,11 +186,19 @@ function getWords(text){
 }
 
 function updateCharacterCounter(){
+  if(!messageInput || !charCounter){
+    return;
+  }
+
   const words = getWords(messageInput.value);
   charCounter.innerText = words.length + " / " + maxWords + " words";
 }
 
 function limitMessageWords(){
+  if(!messageInput){
+    return;
+  }
+
   const words = getWords(messageInput.value);
 
   if(words.length > maxWords){
@@ -80,28 +220,30 @@ if(messageInput && charCounter){
 const targetDate = new Date("2026-12-12T00:00:00").getTime();
 
 function updateCountdown(){
+  const days = document.getElementById("days");
+  const hours = document.getElementById("hours");
+  const minutes = document.getElementById("minutes");
+  const seconds = document.getElementById("seconds");
+
+  if(!days || !hours || !minutes || !seconds){
+    return;
+  }
+
   const now = new Date().getTime();
   const diff = targetDate - now;
 
   if(diff <= 0){
-    document.getElementById("days").innerText = 0;
-    document.getElementById("hours").innerText = 0;
-    document.getElementById("minutes").innerText = 0;
-    document.getElementById("seconds").innerText = 0;
+    days.innerText = 0;
+    hours.innerText = 0;
+    minutes.innerText = 0;
+    seconds.innerText = 0;
     return;
   }
 
-  document.getElementById("days").innerText =
-    Math.floor(diff / (1000 * 60 * 60 * 24));
-
-  document.getElementById("hours").innerText =
-    Math.floor((diff / (1000 * 60 * 60)) % 24);
-
-  document.getElementById("minutes").innerText =
-    Math.floor((diff / (1000 * 60)) % 60);
-
-  document.getElementById("seconds").innerText =
-    Math.floor((diff / 1000) % 60);
+  days.innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+  hours.innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  minutes.innerText = Math.floor((diff / (1000 * 60)) % 60);
+  seconds.innerText = Math.floor((diff / 1000) % 60);
 }
 
 setInterval(updateCountdown, 1000);
@@ -128,51 +270,59 @@ window.addEventListener("scroll", revealOnScroll);
 const form = document.getElementById("rsvpForm");
 const msg = document.getElementById("msg");
 
-form.addEventListener("submit", e=>{
-  e.preventDefault();
+if(form){
+  form.addEventListener("submit", e=>{
+    e.preventDefault();
 
-  const btn = document.getElementById("submitBtn");
+    const btn = document.getElementById("submitBtn");
 
-  btn.innerText = "Sending...";
-  btn.disabled = true;
+    btn.innerText = "Sending...";
+    btn.disabled = true;
 
-  fetch(scriptURL,{
-    method:"POST",
-    body:new FormData(form)
-  })
-  .then(()=>{
-    msg.innerText = "";
-    form.reset();
+    fetch(scriptURL,{
+      method:"POST",
+      body:new FormData(form)
+    })
+    .then(()=>{
+      msg.innerText = "";
+      form.reset();
 
-    if(messageInput && charCounter){
-      updateCharacterCounter();
-    }
+      if(messageInput && charCounter){
+        updateCharacterCounter();
+      }
 
-    showPopup();
+      showPopup();
 
-    setTimeout(()=>{
-      loadGuestMessages();
-    },1200);
-  })
-  .catch(()=>{
-    msg.innerText = "Error. Try again.";
-    msg.style.color = "red";
-  })
-  .finally(()=>{
-    btn.innerText = "Send RSVP";
-    btn.disabled = false;
+      setTimeout(()=>{
+        loadGuestMessages();
+      },1200);
+    })
+    .catch(()=>{
+      msg.innerText = "Error. Try again.";
+      msg.style.color = "red";
+    })
+    .finally(()=>{
+      btn.innerText = "Send RSVP";
+      btn.disabled = false;
+    });
   });
-});
+}
 
 /* POPUP */
 function showPopup(){
   const popup = document.getElementById("successPopup");
-  popup.classList.add("show");
+
+  if(popup){
+    popup.classList.add("show");
+  }
 }
 
 function closePopup(){
   const popup = document.getElementById("successPopup");
-  popup.classList.remove("show");
+
+  if(popup){
+    popup.classList.remove("show");
+  }
 }
 
 /* GUEST MESSAGES */
@@ -249,6 +399,61 @@ function showCurrentMessage(){
       card.classList.remove("fade-in");
     },500);
   },450);
+}
+
+/* VIEW ALL WISHES */
+async function openWishesPopup(){
+  await loadGuestMessages();
+  renderAllWishes();
+
+  const popup = document.getElementById("wishesPopup");
+
+  if(popup){
+    popup.classList.add("show");
+  }
+}
+
+function closeWishesPopup(){
+  const popup = document.getElementById("wishesPopup");
+
+  if(popup){
+    popup.classList.remove("show");
+  }
+}
+
+function renderAllWishes(){
+  const list = document.getElementById("allWishesList");
+
+  if(!list){
+    return;
+  }
+
+  list.innerHTML = "";
+
+  if(guestMessages.length === 0){
+    const empty = document.createElement("p");
+    empty.className = "empty-wishes";
+    empty.innerText = "No wishes yet.";
+    list.appendChild(empty);
+    return;
+  }
+
+  guestMessages.forEach(item=>{
+    const wishItem = document.createElement("div");
+    wishItem.className = "wish-item";
+
+    const message = document.createElement("p");
+    message.className = "wish-message";
+    message.innerText = "“" + item.message + "”";
+
+    const name = document.createElement("p");
+    name.className = "wish-name";
+    name.innerText = item.name ? "— " + item.name : "";
+
+    wishItem.appendChild(message);
+    wishItem.appendChild(name);
+    list.appendChild(wishItem);
+  });
 }
 
 /* AUTO REFRESH MESSAGES */

@@ -9,6 +9,24 @@
 
 <body>
 
+  <img src="flower corner left.png" class="corner-flower corner-left" alt="">
+  <img src="flower corner right.png" class="corner-flower corner-right" alt="">
+
+  <audio id="weddingMusic">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="musicBtn" class="music-btn" type="button" onclick="toggleMusic()">
+    ♪
+  </button>
+
+  <div id="preloader">
+    <div class="preloader-content">
+      <p class="preloader-initial">S & S</p>
+      <p class="preloader-text">Loading Invitation</p>
+    </div>
+  </div>
+
   <div id="landing" onclick="openPage()">
     <video autoplay muted loop playsinline>
       <source src="intro.mp4" type="video/mp4">
@@ -18,7 +36,21 @@
 
   <div id="main">
 
-    <section class="hero reveal">
+    <div class="floating-menu">
+      <div id="floatingMenuPanel" class="floating-menu-panel">
+        <button type="button" onclick="goToPanel('heroSection','directionPanel')">Direction</button>
+        <button type="button" onclick="goToPanel('calendarSection','calendarPanel')">Calendar</button>
+        <button type="button" onclick="goToPanel('contactSection','contactPanel')">Contact</button>
+        <button type="button" onclick="scrollToSection('rsvpSection')">RSVP</button>
+        <button type="button" onclick="scrollToSection('messagesSection')">Messages</button>
+      </div>
+
+      <button class="floating-menu-btn" type="button" onclick="toggleFloatingMenu()">
+        Menu
+      </button>
+    </div>
+
+    <section class="hero reveal" id="heroSection">
       <img src="initial.png" class="hero-img img1" alt="Sofea and Syahir Initial">
       <img src="invitation.png" class="hero-img img2" alt="Wedding Invitation Text">
 
@@ -26,6 +58,24 @@
 
       <p class="venue-date">On Saturday, 12 December 2026</p>
       <p class="venue-name">Kamalinda Secret Garden Hall</p>
+
+      <button class="main-btn" type="button" onclick="togglePanel('directionPanel')">
+        Direction
+      </button>
+
+      <div id="directionPanel" class="slide-panel">
+        <a class="option-btn"
+           href="https://www.google.com/maps/search/?api=1&query=Kamalinda+Secret+Garden+Hall"
+           target="_blank">
+          Google Maps
+        </a>
+
+        <a class="option-btn"
+           href="https://waze.com/ul?q=Kamalinda+Secret+Garden+Hall"
+           target="_blank">
+          Waze
+        </a>
+      </div>
 
       <div class="tentative-card">
         <h3 class="tentative-title">Tentative</h3>
@@ -62,27 +112,9 @@
           </div>
         </div>
       </div>
-
-      <button class="main-btn" type="button" onclick="togglePanel('directionPanel')">
-        Direction
-      </button>
-
-      <div id="directionPanel" class="slide-panel">
-        <a class="option-btn"
-           href="https://www.google.com/maps/search/?api=1&query=Kamalinda+Secret+Garden+Hall"
-           target="_blank">
-          Google Maps
-        </a>
-
-        <a class="option-btn"
-           href="https://waze.com/ul?q=Kamalinda+Secret+Garden+Hall"
-           target="_blank">
-          Waze
-        </a>
-      </div>
     </section>
 
-    <section class="countdown reveal">
+    <section class="countdown reveal" id="countdownSection">
       <h2 class="section-title">Until We Say "I Do"</h2>
       <p class="date-text">12 December 2026</p>
 
@@ -109,7 +141,7 @@
       </div>
     </section>
 
-    <section class="gallery reveal">
+    <section class="gallery reveal" id="gallerySection">
       <div class="carousel">
         <div class="track">
           <img src="g1.jpg" alt="Gallery 1">
@@ -127,9 +159,10 @@
       </div>
     </section>
 
-    <section class="calendar reveal">
+    <section class="calendar reveal" id="calendarSection">
       <h2 class="section-title">Add to Calendar</h2>
-      <p class="subtitle">Save our special day</p>
+
+      <img src="calendar.png" class="calendar-img" alt="Calendar">
 
       <button class="main-btn" type="button" onclick="togglePanel('calendarPanel')">
         Add to Calendar
@@ -148,7 +181,7 @@
       </div>
     </section>
 
-    <section class="contact reveal">
+    <section class="contact reveal" id="contactSection">
       <h2 class="section-title">Guest Contact</h2>
       <p class="subtitle">For any enquiries, kindly contact us via WhatsApp</p>
 
@@ -177,7 +210,7 @@
       </div>
     </section>
 
-    <section class="dress-code reveal">
+    <section class="dress-code reveal" id="dressCodeSection">
       <h2 class="section-title">Dress Code</h2>
       <p class="subtitle">Color reference for our beloved guests</p>
 
@@ -211,7 +244,19 @@
       </div>
     </section>
 
-    <section class="rsvp reveal">
+    <section class="special-note reveal" id="noteSection">
+      <h2 class="section-title">A Little Note</h2>
+
+      <img src="wish.png" class="wish-img" alt="Wish">
+    </section>
+
+    <section class="doa reveal" id="doaSection">
+      <h2 class="section-title">Doa</h2>
+
+      <img src="doa.png" class="doa-img" alt="Doa">
+    </section>
+
+    <section class="rsvp reveal" id="rsvpSection">
       <h2 class="section-title">RSVP</h2>
       <p class="subtitle">Kindly let us know your attendance and leave us a message</p>
 
@@ -234,7 +279,7 @@
       <p id="msg"></p>
     </section>
 
-    <section class="guest-messages reveal">
+    <section class="guest-messages reveal" id="messagesSection">
       <h2 class="section-title">Messages</h2>
       <p class="subtitle">Warm wishes from our guests</p>
 
@@ -242,6 +287,10 @@
         <p id="guestMessageText">Your wishes will appear here soon.</p>
         <p id="guestMessageName"></p>
       </div>
+
+      <button class="main-btn wishes-btn" type="button" onclick="openWishesPopup()">
+        View All Wishes
+      </button>
     </section>
 
     <div class="footer reveal">
@@ -257,6 +306,20 @@
       <p class="popup-small">Your message has been sent successfully.</p>
 
       <button type="button" onclick="closePopup()">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <div id="wishesPopup" class="popup">
+    <div class="popup-box wishes-box">
+      <h2>Guest Wishes</h2>
+
+      <div id="allWishesList" class="all-wishes-list">
+        <p class="empty-wishes">No wishes yet.</p>
+      </div>
+
+      <button type="button" onclick="closeWishesPopup()">
         Close
       </button>
     </div>
