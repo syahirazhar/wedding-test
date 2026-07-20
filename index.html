@@ -9,16 +9,31 @@
 
 <body>
 
-  <img src="flower corner left.png" class="corner-flower corner-left" alt="">
-  <img src="flower corner right.png" class="corner-flower corner-right" alt="">
+  <img src="frame.png" class="top-frame" alt="">
 
   <audio id="weddingMusic">
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
-  <button id="musicBtn" class="music-btn" type="button" onclick="toggleMusic()">
-    ♪
-  </button>
+  <div class="floating-controls">
+    <button id="musicBtn" class="music-btn" type="button" onclick="toggleMusic()">
+      ♪
+    </button>
+
+    <div class="floating-menu">
+      <div id="floatingMenuPanel" class="floating-menu-panel">
+        <button type="button" onclick="goToPanel('heroSection','directionPanel')">Direction</button>
+        <button type="button" onclick="goToPanel('calendarSection','calendarPanel')">Calendar</button>
+        <button type="button" onclick="goToPanel('contactSection','contactPanel')">Contact</button>
+        <button type="button" onclick="scrollToSection('rsvpSection')">RSVP</button>
+        <button type="button" onclick="scrollToSection('messagesSection')">Messages</button>
+      </div>
+
+      <button class="floating-menu-btn" type="button" onclick="toggleFloatingMenu()">
+        Menu
+      </button>
+    </div>
+  </div>
 
   <div id="preloader">
     <div class="preloader-content">
@@ -36,20 +51,6 @@
 
   <div id="main">
 
-    <div class="floating-menu">
-      <div id="floatingMenuPanel" class="floating-menu-panel">
-        <button type="button" onclick="goToPanel('heroSection','directionPanel')">Direction</button>
-        <button type="button" onclick="goToPanel('calendarSection','calendarPanel')">Calendar</button>
-        <button type="button" onclick="goToPanel('contactSection','contactPanel')">Contact</button>
-        <button type="button" onclick="scrollToSection('rsvpSection')">RSVP</button>
-        <button type="button" onclick="scrollToSection('messagesSection')">Messages</button>
-      </div>
-
-      <button class="floating-menu-btn" type="button" onclick="toggleFloatingMenu()">
-        Menu
-      </button>
-    </div>
-
     <section class="hero reveal" id="heroSection">
       <img src="initial.png" class="hero-img img1" alt="Sofea and Syahir Initial">
       <img src="invitation.png" class="hero-img img2" alt="Wedding Invitation Text">
@@ -59,7 +60,11 @@
       <p class="venue-date">On Saturday, 12 December 2026</p>
       <p class="venue-name">Kamalinda Secret Garden Hall</p>
 
-      <button class="main-btn" type="button" onclick="togglePanel('directionPanel')">
+      <button
+        class="main-btn panel-toggle"
+        type="button"
+        data-panel="directionPanel"
+        onclick="togglePanel('directionPanel', this)">
         Direction
       </button>
 
@@ -164,7 +169,11 @@
 
       <img src="calendar.png" class="calendar-img" alt="Calendar">
 
-      <button class="main-btn" type="button" onclick="togglePanel('calendarPanel')">
+      <button
+        class="main-btn panel-toggle"
+        type="button"
+        data-panel="calendarPanel"
+        onclick="togglePanel('calendarPanel', this)">
         Add to Calendar
       </button>
 
@@ -185,7 +194,11 @@
       <h2 class="section-title">Guest Contact</h2>
       <p class="subtitle">For any enquiries, kindly contact us via WhatsApp</p>
 
-      <button class="main-btn" type="button" onclick="togglePanel('contactPanel')">
+      <button
+        class="main-btn panel-toggle"
+        type="button"
+        data-panel="contactPanel"
+        onclick="togglePanel('contactPanel', this)">
         Contact Person
       </button>
 
@@ -218,27 +231,27 @@
         <div class="palette-row">
           <div class="palette-item">
             <span class="color-circle color-1"></span>
-            <p>Dark Brown</p>
+            <p>White</p>
           </div>
 
           <div class="palette-item">
             <span class="color-circle color-2"></span>
-            <p>Brown</p>
+            <p>Pink</p>
           </div>
 
           <div class="palette-item">
             <span class="color-circle color-3"></span>
-            <p>Taupe</p>
+            <p>Soft Pink</p>
           </div>
 
           <div class="palette-item">
             <span class="color-circle color-4"></span>
-            <p>Beige</p>
+            <p>Cream Green</p>
           </div>
 
           <div class="palette-item">
             <span class="color-circle color-5"></span>
-            <p>Cream</p>
+            <p>Light Green</p>
           </div>
         </div>
       </div>
@@ -292,10 +305,6 @@
         View All Wishes
       </button>
     </section>
-
-    <div class="footer reveal">
-      Made with care for a special day
-    </div>
 
   </div>
 

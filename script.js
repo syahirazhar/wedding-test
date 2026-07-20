@@ -141,33 +141,55 @@ function goToPanel(sectionId, panelId){
 }
 
 /* SLIDE PANEL */
-function togglePanel(panelId){
+function togglePanel(panelId, triggerButton){
   const selectedPanel = document.getElementById(panelId);
   const allPanels = document.querySelectorAll(".slide-panel");
+  const allPanelButtons = document.querySelectorAll(".panel-toggle");
 
   if(!selectedPanel){
     return;
   }
 
-  allPanels.forEach(panel=>{
-    if(panel !== selectedPanel){
-      panel.classList.remove("open");
-    }
-  });
-
-  selectedPanel.classList.toggle("open");
-}
-
-function openPanel(panelId){
-  const selectedPanel = document.getElementById(panelId);
-  const allPanels = document.querySelectorAll(".slide-panel");
+  const willOpen = !selectedPanel.classList.contains("open");
 
   allPanels.forEach(panel=>{
     panel.classList.remove("open");
   });
 
+  allPanelButtons.forEach(button=>{
+    button.classList.remove("active-panel");
+  });
+
+  if(willOpen){
+    selectedPanel.classList.add("open");
+
+    if(triggerButton){
+      triggerButton.classList.add("active-panel");
+    }
+  }
+}
+
+function openPanel(panelId){
+  const selectedPanel = document.getElementById(panelId);
+  const allPanels = document.querySelectorAll(".slide-panel");
+  const allPanelButtons = document.querySelectorAll(".panel-toggle");
+
+  allPanels.forEach(panel=>{
+    panel.classList.remove("open");
+  });
+
+  allPanelButtons.forEach(button=>{
+    button.classList.remove("active-panel");
+  });
+
   if(selectedPanel){
     selectedPanel.classList.add("open");
+
+    const matchingButton = document.querySelector('.panel-toggle[data-panel="' + panelId + '"]');
+
+    if(matchingButton){
+      matchingButton.classList.add("active-panel");
+    }
   }
 }
 
